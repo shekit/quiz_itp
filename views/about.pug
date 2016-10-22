@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h2 This is the ABout page
+  p Using the layout template
+
+  ul
+    each i in namelist
+      li= i
+
+  if is_meeting_on
+    h1 The meeting is on
+  else
+    h1 The meeting has ended. See you next saturday
