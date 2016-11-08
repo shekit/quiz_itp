@@ -1,6 +1,8 @@
 var express = require('express')
 var path = require('path')
 
+var giphy = require('giphy-api')()
+
 var bodyParser = require('body-parser')
 
 var app = express()
@@ -59,6 +61,35 @@ app.get('/', function(req, res){
 	// pass that vairable to the template
 
 	res.render("index.pug", {myname:name})
+})
+
+app.get('/gif', function(req, res){
+
+	var searchQuery = req.query.search
+	var myduration = req.query.duration
+
+	giphy.search(searchQuery, function(err, result){
+
+		res.send(result.data[0].url)
+	})
+
+})
+
+app.get('/search/:thing', function(req, res){
+
+	var searchQuery = req.params.thing
+
+	giphy.search(searchQuery, function(req, result){
+		res.send(result.data[0].url)
+	})
+})
+
+app.get('/give-me-a-gif', function(req, res){
+
+	giphy.search('superman', function(err, result){
+
+		res.send(result.data[0].url)
+	})
 })
 
 
