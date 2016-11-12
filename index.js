@@ -5,10 +5,14 @@ var giphy = require('giphy-api')()
 
 var bodyParser = require('body-parser')
 
+
+
 var app = express()
 
 var http = require('http')
 http = http.Server(app)
+
+var io = require('socket.io')(http)
 
 
 var mongoose = require('mongoose')
@@ -182,6 +186,12 @@ app.get('/about', function(req, res){
 app.get('/contact', function(req, res){
 
 	res.send("contact page")
+})
+
+io.on('connection', function(socket){
+
+	console.log("new client connected")
+
 })
 
 var server = http.listen(3000, function(){
