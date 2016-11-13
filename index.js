@@ -84,7 +84,7 @@ app.get('/search/:thing', function(req, res){
 	var searchQuery = req.params.thing
 
 	giphy.search(searchQuery, function(req, result){
-		res.send(result.data[0].url)
+		res.send(result.data[0].images.fixed_height.url)
 	})
 })
 
@@ -92,7 +92,7 @@ app.get('/give-me-a-gif', function(req, res){
 
 	giphy.search('superman', function(err, result){
 
-		res.send(result.data[0].url)
+		res.send(result.data[0].images.fixed_height.url)
 	})
 })
 
@@ -136,7 +136,7 @@ app.get('/filter', function(req, res){
 
 app.post('/newuser', function(req, res, next){
 
-	var newname = req.body.username
+	var newname = req.body.name
 
 	var newuser = new User({
 		name: newname
@@ -147,7 +147,7 @@ app.post('/newuser', function(req, res, next){
 		if(err){
 			res.send("could not save")
 		} else {
-			res.send("saved to database!")
+			res.send("your first ajax save")
 		}
 	})
 
@@ -192,9 +192,35 @@ io.on('connection', function(socket){
 
 	console.log("new client connected")
 
+	socket.on("chat", function(data){
+
+		io.emit("outgoing-message", data)
+	})
+
+	socket.on("click", function(data){
+		console.log(data)
+	})
+
+	socket.on("message", function(data){
+
+		console.log(data)
+
+		socket.emit("resend", data)
+	})
+
 })
 
 var server = http.listen(3000, function(){
 
 	console.log("I am listening on port 3000")
 })
+
+
+
+
+
+
+
+
+
+
