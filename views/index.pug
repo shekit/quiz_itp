@@ -6,14 +6,14 @@ block content
   a(id='socket' href='#') Send a Socket Message
 
   form(id='chat')
-    input(type='text' id='chat-message' placeholder='Enter your message')
+     input(type='text' id='chat-message' placeholder='Enter your message')
     input(type='submit' value='Send Message')
 
   br
   br
   br
 
-  form(method='POST', action='/newuser' id='user')
+  form (method='POST', action='/newuser' id='user')
     input(type='text' id='username' name='username' placeholder='Enter name here')
     input(type='submit' name='submit' value='Save User')
 
@@ -22,7 +22,7 @@ block content
   br
 
   form(id='gif')
-    input(type='text' placeholder='Enter gif' id='gif-value')
+    input(type='text' placeholder='Enter gif' ids='gif-value')
     input(type='submit' value='Get Gif')
 
   ul(id='chat-messages')

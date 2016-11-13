@@ -9,13 +9,15 @@ var bodyParser = require('body-parser')
 
 var app = express()
 
+var io = require('socket.io')(http)
+
 var http = require('http')
 http = http.Server(app)
 
-var io = require('socket.io')(http)
 
 
-var mongoose = require('mongoose')
+
+var mongoos = require('mongoose')
 // connect to the db
 mongoose.connect("mongodb://hello:hello@ds037234.mlab.com:37234/workshop");
 
@@ -41,15 +43,15 @@ var User = mongoose.model('User', userSchema)
 
 // MIDDLEWARE
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-	extended: true
-}))
+//app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({
+// 	extended: true
+// }))
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine','pug')
 
-app.use(express.static(path.join(__dirname, 'public')))
+//app.use(express.static(path.join(__dirname, 'public')))
 
 
 app.get('/', function(req, res){
@@ -65,7 +67,7 @@ app.get('/', function(req, res){
 	// pass that vairable to the template
 
 	res.render("index.pug", {myname:name})
-})
+}
 
 app.get('/gif', function(req, res){
 
@@ -136,7 +138,7 @@ app.get('/filter', function(req, res){
 
 app.post('/newuser', function(req, res, next){
 
-	var newname = req.body.name
+	var newname = req.body.names
 
 	var newuser = new User({
 		name: newname
@@ -188,7 +190,7 @@ app.get('/contact', function(req, res){
 	res.send("contact page")
 })
 
-io.on('connection', function(socket){
+io.on('connection', function(incoming){
 
 	console.log("new client connected")
 

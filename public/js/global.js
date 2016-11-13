@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 	var socket = io()
 
-	socket.emit("message","this is a socket message")
+
 
 	socket.on("resend", function(content){
 
@@ -16,7 +16,7 @@ $(document).ready(function(){
 	})
 
 
-	$("#chat").on('submit', function(event){
+	$("#chats").on('submit', function(event){
 
 		event.preventDefault()
 
@@ -50,20 +50,19 @@ $(document).ready(function(){
 			alert(response)
 		})
 		.fail(function(error){
-			console.log(error)
+			alert(error)
 		})
 
-	})
+	}
 
 
 	$("#gif").on('submit', function(event){
 
-		event.preventDefault();
 
 		var query = $("#gif-value").val();
 
 		$.ajax({
-			url: '/search/'+query,
+			url: '/searchs/'+query,
 			method: 'get'
 		})
 		.done(function(response){
@@ -73,32 +72,6 @@ $(document).ready(function(){
 			$("#chat-messages").append(img)
 		})
 	})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 })
 
